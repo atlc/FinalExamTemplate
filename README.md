@@ -17,3 +17,7 @@ Clone the [OG repo from github](https://github.com/covalence-io/ts-react-express
 -   Optional server side utilities (JWT signing function, bcrypt hashing and comparing functions)
 
 -   Client side - add services like your API helper/fetchExtender, possibly something like an alert service using Sweetalert2 for automatic error notifications
+
+# Practicing
+
+Clone your repo from yourself, cd into the new project folder, `rm -rf .git && git init && git add . && git commit -m "Initialized repo"`, and go nuts
