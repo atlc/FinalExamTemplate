@@ -5,9 +5,6 @@ node_modules/
 dist/
 public/static/
 
-# Environment files
-*.env
-
 # Editor settings
 .vscode/
 .idea/
