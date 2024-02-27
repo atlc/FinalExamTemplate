@@ -20,9 +20,12 @@ if (isProduction) {
 app.get("/api/hello", async (req, res) => {
     try {
         const pool = mysql.createPool(config.mysql);
-        const [results] = await pool.query("SELECT CURRENT_TIMESTAMP");
+        const results = await pool.query("SELECT CURRENT_TIMESTAMP");
+        const rows = results[0] as unknown as string[];
 
-        res.json({ message: "World from " + results });
+        const timestamp = rows[0];
+
+        res.json({ message: "World from " + timestamp, rows });
     } catch (error) {
         res.json({ message: "World (db broke lol)" });
     }
