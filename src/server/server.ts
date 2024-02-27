@@ -23,7 +23,8 @@ app.get("/api/hello", async (req, res) => {
         const results = await pool.query("SELECT CURRENT_TIMESTAMP");
         const rows = results[0] as unknown as string[];
 
-        const timestamp = rows[0];
+        const timestampObj = rows[0] as unknown as { CURRENT_TIMESTAMP: string };
+        const timestamp = timestampObj.CURRENT_TIMESTAMP;
 
         res.json({ message: "World from " + timestamp, rows });
     } catch (error) {
