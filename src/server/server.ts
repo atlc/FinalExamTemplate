@@ -1,12 +1,12 @@
 import express from "express";
 import cors from "cors";
-import { configurePassport } from "./middlewares/passport";
+import mysql from "mysql2/promise";
+import config from "./config";
 
 const isProduction = process.env.NODE_ENV === "production";
 const isDevelopment = process.env.NODE_ENV === "development";
 
 const app = express();
-configurePassport(app);
 
 if (isDevelopment) {
     app.use(cors());
@@ -17,8 +17,15 @@ if (isProduction) {
 }
 
 // all our api routes
-app.get("/api/hello", (req, res) => {
-    res.json({ message: "World" });
+app.get("/api/hello", async (req, res) => {
+    try {
+        const pool = mysql.createPool(config.mysql);
+        const [results] = await pool.query("SELECT CURRENT_TIMESTAMP");
+
+        res.json({ message: "World from " + results });
+    } catch (error) {
+        res.json({ message: "World (db broke lol)" });
+    }
 });
 
 // 404 fallback for client side routing
